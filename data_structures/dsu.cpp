@@ -1,20 +1,23 @@
 #include <iostream>
 #include <vector>
-using namespace std;
 
 class DSU {
 private:
   int n;
   vector<int> parent;
+  vector<int> size;
 
 public:
   DSU(int n) {
-    parent.reserve(n);
+    parent.resize(n, 0);
+    size.reserve(n);
     std::fill(parent.begin(), parent.end(), 0);
+    std::fill(size.begin(), size.end(), 0);
   }
 
   void make_set(int v) {
     parent[v] = v;
+    size[v] = 1;
   }
 
   int find_set(int v) {
@@ -27,8 +30,10 @@ public:
   void union_sets(int a, int b) {
     a = find_set(a);
     b = find_set(b);
-    if (a != b) {
+    if (a != b) { // union by size
+      if (size[a] < size[b]) std::swap(a, b);
       parent[b] = a;
+      size[a] += size[b];
     }
   }
 };
@@ -36,3 +41,8 @@ public:
 int main() {
 
 }
+
+/*
+Example use cases:
+  1. connected components in a graph
+*/
