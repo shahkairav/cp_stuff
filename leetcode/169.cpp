@@ -13,11 +13,11 @@ public:
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        bool counter = false;
+        int counter = 0;
         int majority;
         for(int num : nums) {
             if (!counter) majority = num;
-            counter = (num == majority ? true : false);
+            counter += (num == majority ? 1 : -1);
         }
 
         return majority;
