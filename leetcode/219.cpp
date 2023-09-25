@@ -4,7 +4,7 @@ class Solution {
 public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
         k += 1;
-        multiset<int> s;
+        unordered_multiset<int> s;
         for (int i = 0; i < min(k, (int)nums.size()); i++) {
             s.insert(nums[i]);
             if (s.count(nums[i]) > 1) return true;
